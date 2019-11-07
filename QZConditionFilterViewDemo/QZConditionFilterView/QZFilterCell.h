@@ -1,5 +1,5 @@
 //
-//  QZSortCell.h
+//  QZFilterCell.h
 //  circle_iphone
 //
 //  Created by MrYu on 16/8/2.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface QZSortCell : UITableViewCell
+@interface QZFilterCell : UITableViewCell
 
 @property (nonatomic,strong) UIImageView *markView;
 

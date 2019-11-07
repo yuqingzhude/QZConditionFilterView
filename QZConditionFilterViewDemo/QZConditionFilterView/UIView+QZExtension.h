@@ -7,12 +7,11 @@
 
 #import <UIKit/UIKit.h>
 
-/* 常用*/
-#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
-#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#define QZ_SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define QZ_SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-@interface UIView (Extension)
+@interface UIView (QZExtension)
 
 @property (nonatomic, assign) CGFloat x;
 @property (nonatomic, assign) CGFloat y;
@@ -23,7 +22,7 @@
 @property (nonatomic, assign) CGSize size;
 @property (nonatomic, assign) CGPoint origin;
 
-@property (nonatomic,assign)  CGFloat bottom;
-@property (nonatomic,assign)  CGFloat right;
+@property (nonatomic, assign, readonly)  CGFloat bottom;
+@property (nonatomic, assign, readonly)  CGFloat right;
 
 @end

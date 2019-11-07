@@ -20,11 +20,12 @@
 		4449C5A91F020648001D6092 /* PR_filter_choice_top@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4449C59D1F020648001D6092 /* PR_filter_choice_top@2x.png */; };
 		4449C5AA1F020648001D6092 /* PR_filter_choice_top@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4449C59E1F020648001D6092 /* PR_filter_choice_top@3x.png */; };
 		4449C5AB1F020648001D6092 /* QZConditionFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4449C5A01F020648001D6092 /* QZConditionFilterView.m */; };
-		4449C5AC1F020648001D6092 /* QZFilterDataTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4449C5A21F020648001D6092 /* QZFilterDataTableView.m */; };
-		4449C5AD1F020648001D6092 /* QZSortCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4449C5A41F020648001D6092 /* QZSortCell.m */; };
-		4449C5AE1F020648001D6092 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4449C5A61F020648001D6092 /* UIView+Extension.m */; };
+		4449C5AC1F020648001D6092 /* QZFilterTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4449C5A21F020648001D6092 /* QZFilterTableView.m */; };
+		4449C5AD1F020648001D6092 /* QZFilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4449C5A41F020648001D6092 /* QZFilterCell.m */; };
 		44B829822089858600B8B04B /* PR_project_ok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44B829802089858600B8B04B /* PR_project_ok@2x.png */; };
 		44B829832089858600B8B04B /* PR_project_ok@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44B829812089858600B8B04B /* PR_project_ok@3x.png */; };
+		9A68D9A023731CCD00FC4E13 /* UIView+QZExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A68D99F23731CCD00FC4E13 /* UIView+QZExtension.m */; };
+		9A68D9A223731DBA00FC4E13 /* QZConditionFilterView.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A68D9A123731DBA00FC4E13 /* QZConditionFilterView.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,14 +68,15 @@
 		4449C59E1F020648001D6092 /* PR_filter_choice_top@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PR_filter_choice_top@3x.png"; sourceTree = "<group>"; };
 		4449C59F1F020648001D6092 /* QZConditionFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QZConditionFilterView.h; sourceTree = "<group>"; };
 		4449C5A01F020648001D6092 /* QZConditionFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QZConditionFilterView.m; sourceTree = "<group>"; };
-		4449C5A11F020648001D6092 /* QZFilterDataTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QZFilterDataTableView.h; sourceTree = "<group>"; };
-		4449C5A21F020648001D6092 /* QZFilterDataTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QZFilterDataTableView.m; sourceTree = "<group>"; };
-		4449C5A31F020648001D6092 /* QZSortCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QZSortCell.h; sourceTree = "<group>"; };
-		4449C5A41F020648001D6092 /* QZSortCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QZSortCell.m; sourceTree = "<group>"; };
-		4449C5A51F020648001D6092 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
-		4449C5A61F020648001D6092 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		4449C5A11F020648001D6092 /* QZFilterTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QZFilterTableView.h; sourceTree = "<group>"; };
+		4449C5A21F020648001D6092 /* QZFilterTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QZFilterTableView.m; sourceTree = "<group>"; };
+		4449C5A31F020648001D6092 /* QZFilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QZFilterCell.h; sourceTree = "<group>"; };
+		4449C5A41F020648001D6092 /* QZFilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QZFilterCell.m; sourceTree = "<group>"; };
 		44B829802089858600B8B04B /* PR_project_ok@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PR_project_ok@2x.png"; sourceTree = "<group>"; };
 		44B829812089858600B8B04B /* PR_project_ok@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PR_project_ok@3x.png"; sourceTree = "<group>"; };
+		9A68D99E23731CCD00FC4E13 /* UIView+QZExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+QZExtension.h"; sourceTree = "<group>"; };
+		9A68D99F23731CCD00FC4E13 /* UIView+QZExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+QZExtension.m"; sourceTree = "<group>"; };
+		9A68D9A123731DBA00FC4E13 /* QZConditionFilterView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QZConditionFilterView.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,14 +171,15 @@
 			isa = PBXGroup;
 			children = (
 				4449C59A1F020648001D6092 /* images */,
+				9A68D9A123731DBA00FC4E13 /* QZConditionFilterView.png */,
 				4449C59F1F020648001D6092 /* QZConditionFilterView.h */,
 				4449C5A01F020648001D6092 /* QZConditionFilterView.m */,
-				4449C5A11F020648001D6092 /* QZFilterDataTableView.h */,
-				4449C5A21F020648001D6092 /* QZFilterDataTableView.m */,
-				4449C5A31F020648001D6092 /* QZSortCell.h */,
-				4449C5A41F020648001D6092 /* QZSortCell.m */,
-				4449C5A51F020648001D6092 /* UIView+Extension.h */,
-				4449C5A61F020648001D6092 /* UIView+Extension.m */,
+				4449C5A11F020648001D6092 /* QZFilterTableView.h */,
+				4449C5A21F020648001D6092 /* QZFilterTableView.m */,
+				4449C5A31F020648001D6092 /* QZFilterCell.h */,
+				4449C5A41F020648001D6092 /* QZFilterCell.m */,
+				9A68D99E23731CCD00FC4E13 /* UIView+QZExtension.h */,
+				9A68D99F23731CCD00FC4E13 /* UIView+QZExtension.m */,
 			);
 			path = QZConditionFilterView;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -312,6 +316,7 @@
 				44268CA31D923B07006642B2 /* Assets.xcassets in Resources */,
 				44268CA11D923B07006642B2 /* Main.storyboard in Resources */,
 				4449C5A91F020648001D6092 /* PR_filter_choice_top@2x.png in Resources */,
+				9A68D9A223731DBA00FC4E13 /* QZConditionFilterView.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,10 +343,10 @@
 			files = (
 				44268C9E1D923B07006642B2 /* ViewController.m in Sources */,
 				4449C5AB1F020648001D6092 /* QZConditionFilterView.m in Sources */,
-				4449C5AD1F020648001D6092 /* QZSortCell.m in Sources */,
-				4449C5AE1F020648001D6092 /* UIView+Extension.m in Sources */,
+				4449C5AD1F020648001D6092 /* QZFilterCell.m in Sources */,
+				9A68D9A023731CCD00FC4E13 /* UIView+QZExtension.m in Sources */,
 				44268C9B1D923B07006642B2 /* AppDelegate.m in Sources */,
-				4449C5AC1F020648001D6092 /* QZFilterDataTableView.m in Sources */,
+				4449C5AC1F020648001D6092 /* QZFilterTableView.m in Sources */,
 				44268C981D923B07006642B2 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
