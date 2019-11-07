@@ -15,7 +15,7 @@
 
 @implementation QZFilterCell
 
-+ (instancetype)sortCell {
++ (instancetype)filterCell {
     return [[self alloc] init];
 }
 

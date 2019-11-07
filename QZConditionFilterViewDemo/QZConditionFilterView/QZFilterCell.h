@@ -12,6 +12,6 @@
 
 @property (nonatomic,strong) UIImageView *markView;
 
-+ (instancetype)sortCell;
++ (instancetype)filterCell;
 
 @end

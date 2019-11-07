@@ -11,6 +11,14 @@
 #define QZ_SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
+#define NavBarHeight            44
+#define TabBarHeight            49
+#define StatusBarHeight         [UIApplication sharedApplication].statusBarFrame.size.height
+#define SafeAreaTopHeight       (StatusBarHeight + NavBarHeight)
+#define SafeAreaBottomHeight    (StatusBarHeight > 20 ? 34 : 0)
+#define SafeAreaHeightWithNav   (SCREEN_HEIGHT - SafeAreaTopHeight - SafeAreaBottomHeight)
+
+
 @interface UIView (QZExtension)
 
 @property (nonatomic, assign) CGFloat x;

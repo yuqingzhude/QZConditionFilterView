@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 /// 三个tableView cell 类型的筛选
-typedef void (^FilterBlock)(BOOL isFilter, NSArray *dataSource1Ary,NSArray *dataSource2Ary, NSArray *dataSource3Ary);
+typedef void (^FilterBlock)(NSString *filter1, NSString *filter2, NSString *filter3);
 
 @interface QZConditionFilterView : UIView
 /// 下拉tableView datasource
@@ -22,16 +22,10 @@ typedef void (^FilterBlock)(BOOL isFilter, NSArray *dataSource1Ary,NSArray *data
 /// 创建实例 with block
 + (instancetype)conditionFilterViewWithFilterBlock:(FilterBlock)filterBlock;
 
-/** 刷新标题字*/
-- (void)bindChoseArrayDataSource1:(NSArray *)dataSource1Ary DataSource2:(NSArray *)dataSource2Ary DataSource3:(NSArray *)dataSource3Ary;
+/// 更新显示三个小标题
+- (void)updateFilterTableTitleWithTitleArray:(NSArray <NSString*> *)titleArray;
 
-/** 外部手动筛选加载*/
-- (void)choseSortFromOutsideWithFirstSort:(NSArray *)firstAry WithSecondSort:(NSArray *)secondAry WithThirdSort:(NSArray *)thirdAry;
-
-/** 消失*/
+/// 消失
 - (void)dismiss;
-
-/** 网络请求key value从这取*/
-@property (nonatomic,strong) NSDictionary *keyValueDic;
 
 @end

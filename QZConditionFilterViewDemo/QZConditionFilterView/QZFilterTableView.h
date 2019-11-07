@@ -12,22 +12,17 @@
 
 @optional
 // 选中筛选项触发
-- (void)choseSort:(NSArray *)sortAry;
+- (void)chooseFilterItem:(NSString *)item;
 
 @end
 
 @interface QZFilterTableView : UITableView
 
 @property (nonatomic,weak) id<QZFilterTableViewDelegate> chooseDelegate;
-/// 选中的数据
-@property (nonatomic,strong) NSMutableArray *sortArr;
+// 对外提供设置能力,显示当前选中cell
+@property (nonatomic,copy) NSString *selectedItem;
 
-@property (nonatomic,copy) NSString *selectedCell;
-
-@property (nonatomic,strong) NSArray *dateArray;
-
-/// didSelect处理好数据调用此方法
-- (void)bindChoseArraySort:(NSArray *)sortAry;
+@property (nonatomic,strong) NSArray *dataArray;
 
 - (void)dismiss;
 
