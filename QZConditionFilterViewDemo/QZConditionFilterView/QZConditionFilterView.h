@@ -7,23 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-/// 三个tableView cell 类型的筛选
-typedef void (^FilterBlock)(NSString *filter1, NSString *filter2, NSString *filter3);
+/// tableView cell 类型的筛选
+typedef void (^FilterBlock)(NSArray<NSString *> *filters);
 
 @interface QZConditionFilterView : UIView
 /// 下拉tableView datasource
-@property (nonatomic, strong) NSArray *dataArray1;
-@property (nonatomic, strong) NSArray *dataArray2;
-@property (nonatomic, strong) NSArray *dataArray3;
+@property (nonatomic, strong) NSArray<NSArray *> *dataArrays;
 
 /// 是否展示
 @property (nonatomic,readonly, assign) BOOL isShow;
 
 /// 创建实例 with block
-+ (instancetype)conditionFilterViewWithFilterBlock:(FilterBlock)filterBlock;
++ (instancetype)conditionFilterViewWithListCount:(NSInteger)listCount FilterBlock:(FilterBlock)filterBlock;
 
 /// 更新显示三个小标题
-- (void)updateFilterTableTitleWithTitleArray:(NSArray <NSString*> *)titleArray;
+- (void)updateFilterTableTitleWithTitleArray:(NSArray<NSString*> *)titleArray;
 
 /// 消失
 - (void)dismiss;

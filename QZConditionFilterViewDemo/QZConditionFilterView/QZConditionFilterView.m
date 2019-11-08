@@ -13,81 +13,75 @@
 #define DefaultFilterNum    3
 #define DefaultFont         [UIFont systemFontOfSize:13]
 
-@interface QZConditionFilterView()<QZFilterTableViewDelegate> {
-    // 下拉菜单按钮
-    UIButton *_filterButton1;
-    UIButton *_filterButton2;
-    UIButton *_filterButton3;
-    
-    UIButton *_selectBtn; // 当前选中的按钮
-    
-    UIView *_bgView;
-    
-    // 对应三个下拉框
-    QZFilterTableView *_filterTableView1;
-    QZFilterTableView *_filterTableView2;
-    QZFilterTableView *_filterTableView3;
-    
-    // 存储 tableView didSelected数据 数据来源：FilterDataTableView
-    NSString *_choosedTableItem1;
-    NSString *_choosedTableItem2;
-    NSString *_choosedTableItem3;
-    
-    BOOL _isShow;
-}
+@interface QZConditionFilterView()<QZFilterTableViewDelegate>
 
+@property (nonatomic, strong) NSMutableArray<UIButton *> *filterButtons;
+@property (nonatomic, strong) NSMutableArray<NSString *> *choosedTableItems;
+@property (nonatomic, strong) UIButton *selectBtn;
+@property (nonatomic, strong) UIView *bgView;
+@property (nonatomic, assign) BOOL isShow;
+@property (nonatomic, assign) NSInteger listCount;
 @property (nonatomic,strong) FilterBlock filterBlock;
+@property (nonatomic, strong) QZFilterTableView *filterTableView;
 
 @end
 
 
 @implementation QZConditionFilterView
 
-+ (instancetype)conditionFilterViewWithFilterBlock:(FilterBlock)filterBlock {
++ (instancetype)conditionFilterViewWithListCount:(NSInteger)listCount FilterBlock:(FilterBlock)filterBlock {
     QZConditionFilterView *conditionFilter = [[QZConditionFilterView alloc] initWithFrame:CGRectMake(0, 0, QZ_SCREEN_WIDTH, 40)];
-    [conditionFilter createSubView];
     conditionFilter.filterBlock=filterBlock;
+    conditionFilter.listCount = listCount;
+    [conditionFilter createSubView];
+    [conditionFilter setupData];
     return conditionFilter;
 }
 
 - (void)createSubView {
     self.backgroundColor=[UIColor whiteColor];
-    _isShow = NO;
+    self.isShow = NO;
     
-    // 不用设置默认显示数据，在外边设置 bindChoseArray重置就会刷新
-    _filterButton1 = [self buttonWithLeftTitle:@"" titleColor:UIColorFromRGB(0x333333) Font:DefaultFont backgroundColor:[UIColor whiteColor] RightImageName:@"PR_filter_choice" Frame:CGRectMake(0, 0, (QZ_SCREEN_WIDTH-1) / DefaultFilterNum, 40)];
-    [_filterButton1 setTitleColor:UIColorFromRGB(0x00a0ff) forState:UIControlStateSelected];
-    [_filterButton1 setImage:[UIImage imageNamed:@"PR_filter_choice_top"] forState:UIControlStateSelected];
-    [_filterButton1 addTarget:self action:@selector(filterWithBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_filterButton1];
+    if (self.listCount <= 0) {
+        return;
+    }
     
-    UILabel *middleLine = [[UILabel alloc] initWithFrame:CGRectMake(_filterButton1.x+_filterButton1.width, 8 , 0.5, 24)];
-    middleLine.backgroundColor=UIColorFromRGB(0xe6e6e6);
-    [self addSubview:middleLine];
+    self.filterButtons = [NSMutableArray array];
     
-    _filterButton2 = [self buttonWithLeftTitle:@"" titleColor:UIColorFromRGB(0x333333) Font:DefaultFont backgroundColor:[UIColor whiteColor] RightImageName:@"PR_filter_choice" Frame:CGRectMake(_filterButton1.x+_filterButton1.width+0.5, 0, _filterButton1.width, 40)];
-    [_filterButton2 setTitleColor:UIColorFromRGB(0x00a0ff) forState:UIControlStateSelected];
-    [_filterButton2 setImage:[UIImage imageNamed:@"PR_filter_choice_top"] forState:UIControlStateSelected];
-    [_filterButton2 addTarget:self action:@selector(filterWithBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_filterButton2];
+    NSInteger middleLineCount = self.listCount - 1;
+    CGFloat middleLineWidth = 0.5;
+    CGFloat filterButtonWidth = (QZ_SCREEN_WIDTH - middleLineCount * middleLineWidth) / self.listCount;
+    CGFloat coupleWidth = filterButtonWidth + middleLineWidth;
     
-    
-    UILabel *middleLine2 = [[UILabel alloc] initWithFrame:CGRectMake(_filterButton2.x+_filterButton2.width, 8 , 0.5, 24)];
-    middleLine2.backgroundColor=UIColorFromRGB(0xe6e6e6);
-    [self addSubview:middleLine2];
-    
-    _filterButton3 = [self buttonWithLeftTitle:@"" titleColor:UIColorFromRGB(0x333333) Font:DefaultFont backgroundColor:[UIColor whiteColor] RightImageName:@"PR_filter_choice" Frame:CGRectMake(_filterButton2.x+_filterButton2.width+0.5, 0, _filterButton1.width, 40)];
-    [_filterButton3 setTitleColor:UIColorFromRGB(0x00a0ff) forState:UIControlStateSelected];
-    [_filterButton3 setImage:[UIImage imageNamed:@"PR_filter_choice_top"] forState:UIControlStateSelected];
-    [_filterButton3 addTarget:self action:@selector(filterWithBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_filterButton3];
-    
+    for (NSInteger i = 0; i<self.listCount; i++) {
+        UIButton *filterButton = [self buttonWithLeftTitle:@"" titleColor:UIColorFromRGB(0x333333) Font:DefaultFont backgroundColor:[UIColor whiteColor] RightImageName:@"PR_filter_choice" Frame:CGRectMake(coupleWidth * i, 0, filterButtonWidth, 40)];
+        [filterButton setTitleColor:UIColorFromRGB(0x00a0ff) forState:UIControlStateSelected];
+        [filterButton setImage:[UIImage imageNamed:@"PR_filter_choice_top"] forState:UIControlStateSelected];
+        [filterButton addTarget:self action:@selector(filterWithBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:filterButton];
+        [self.filterButtons addObject:filterButton];
+        
+        if (i != self.listCount -1) {
+            // 最后一个不用竖线
+            UILabel *middleLine = [[UILabel alloc] initWithFrame:CGRectMake(filterButton.right, 8 , middleLineWidth, 24)];
+            middleLine.backgroundColor=UIColorFromRGB(0xe6e6e6);
+            [self addSubview:middleLine];
+        }
+        
+    }
     
     UILabel *bottomLine = [[UILabel alloc] initWithFrame:CGRectMake(0, 39.5, QZ_SCREEN_WIDTH, 0.5)];
     bottomLine.backgroundColor = UIColorFromRGB(0xe6e6e6);
     [self addSubview:bottomLine];
 }
 
+- (void)setupData {
+    // 占位
+    self.choosedTableItems = [NSMutableArray array];
+    for (NSInteger i = 0; i<self.listCount; i++) {
+        [self.choosedTableItems addObject:@""];
+    }
+}
 
 - (UIButton *)buttonWithLeftTitle:(NSString *)title titleColor:(UIColor *)titleColor Font:(UIFont *)font backgroundColor:(UIColor *)backgroundColor RightImageName:(NSString *)imageName Frame:(CGRect)frame {
     
@@ -139,35 +133,18 @@
         [[UIApplication sharedApplication].keyWindow addSubview:_bgView];
     }
     
-    if (btn == _filterButton1) {
-        _filterTableView1 = [[QZFilterTableView alloc] initWithFrame:CGRectMake(0, self.bottom, self.width, 0)];
-        _filterTableView1.chooseDelegate = self;
-        _filterTableView1.dataArray = self.dataArray1;
-        _filterTableView1.selectedItem = _choosedTableItem1;
-        [[UIApplication sharedApplication].keyWindow addSubview:_filterTableView1];
-        [_filterTableView2 dismiss];
-        [_filterTableView3 dismiss];
-    } else if (btn == _filterButton2){
-        _filterTableView2 = [[QZFilterTableView alloc] initWithFrame:CGRectMake(0, self.bottom, self.width, 0)];
-        _filterTableView2.chooseDelegate = self;
-        _filterTableView2.dataArray = self.dataArray2;
-        _filterTableView2.selectedItem = _choosedTableItem2;
-        
-        [[UIApplication sharedApplication].keyWindow addSubview:_filterTableView2];
-        [_filterTableView1 dismiss];
-        [_filterTableView3 dismiss];
-        
-    } else if (btn == _filterButton3){
-        _filterTableView3 = [[QZFilterTableView alloc] initWithFrame:CGRectMake(0, self.bottom, self.width, 0)];
-        _filterTableView3.chooseDelegate = self;
-        _filterTableView3.dataArray = self.dataArray3;
-        _filterTableView3.selectedItem = _choosedTableItem3;
-        
-        [[UIApplication sharedApplication].keyWindow addSubview:_filterTableView3];
-        [_filterTableView1 dismiss];
-        [_filterTableView2 dismiss];
+    for (NSInteger i = 0; i<self.filterButtons.count; i++) {
+        UIButton *filterButton = self.filterButtons[i];
+        if (btn == filterButton) {
+            [self.filterTableView dismiss];
+            self.filterTableView.frame = CGRectMake(0, self.bottom, self.width, 0);
+            self.filterTableView.chooseDelegate = self;
+            self.filterTableView.dataArray = self.dataArrays[i];
+            self.filterTableView.selectedItem = self.choosedTableItems[i];
+            [[UIApplication sharedApplication].keyWindow addSubview:self.filterTableView];
+        }
     }
-    
+
     _isShow = YES;
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
     if (_selectBtn && _selectBtn != btn) {
@@ -176,40 +153,36 @@
     
 }
 
-- (void)updateFilterTableTitleWithTitleArray:(NSArray <NSString*> *)titleArray {
-    if (titleArray.count < DefaultFilterNum) {
+- (void)updateFilterTableTitleWithTitleArray:(NSArray<NSString*> *)titleArray {
+    if (titleArray.count < self.listCount) {
         NSLog(@"数据源不足，请检查显示在筛选框上的标题数据");
         return;
     }
     // 改变 按键 值
-    [self changeBtn:_filterButton1 Text:titleArray[0] Font:DefaultFont ImageName:@"PR_filter_choice"];
-    [self changeBtn:_filterButton2 Text:titleArray[1] Font:DefaultFont ImageName:@"PR_filter_choice"];
-    [self changeBtn:_filterButton3 Text:titleArray[2] Font:DefaultFont ImageName:@"PR_filter_choice"];
-    
+    for (NSInteger i = 0; i<self.filterButtons.count; i++) {
+        UIButton *filterButton = self.filterButtons[i];
+        [self changeBtn:filterButton Text:titleArray[i] Font:DefaultFont ImageName:@"PR_filter_choice"];
+    }
     [self dismiss];
     
     if(self.filterBlock) {
-        self.filterBlock(titleArray[0], titleArray[1], titleArray[2]);
+        self.filterBlock(titleArray);
     }
     
 }
 
 #pragma mark - QZFilterTableViewDelegate 选择筛选项
 - (void)chooseFilterItem:(NSString *)item {
-    if (_filterButton1.selected) {
-        [self changeBtn:_filterButton1 Text:item Font:DefaultFont ImageName:@"PR_filter_choice"];
-        _choosedTableItem1 = item;
-    }else if (_filterButton2.selected){
-        [self changeBtn:_filterButton2 Text:item Font:DefaultFont ImageName:@"PR_filter_choice"];
-        _choosedTableItem2 = item;
-    }else if (_filterButton3.selected){
-        [self changeBtn:_filterButton3 Text:item Font:DefaultFont ImageName:@"PR_filter_choice"];
-        _choosedTableItem3 = item;
+    for (UIButton *filterButton in self.filterButtons) {
+        if (filterButton.selected) {
+            [self changeBtn:filterButton Text:item Font:DefaultFont ImageName:@"PR_filter_choice"];
+            NSInteger index = [self.filterButtons indexOfObject:filterButton];
+            self.choosedTableItems[index] = item;
+        }
     }
-
     [self dismiss];
     if (self.filterBlock) {
-        self.filterBlock(_choosedTableItem1, _choosedTableItem2, _choosedTableItem3);
+        self.filterBlock(self.choosedTableItems);
     }
 }
 
@@ -240,25 +213,22 @@
 }
 
 - (void)dismiss {
-    [_filterTableView1 dismiss];
-    [_filterTableView2 dismiss];
-    [_filterTableView3 dismiss];
-    _filterButton1.selected=NO;
-    _filterButton2.selected=NO;
-    _filterButton3.selected=NO;
+    [self.filterTableView dismiss];
+    
+    for (UIButton *filterButton in self.filterButtons) {
+        filterButton.selected = NO;
+    }
     _selectBtn=nil;
     _isShow=NO;
     [_bgView removeFromSuperview];
     _bgView=nil;
-    _filterTableView1.chooseDelegate=nil;
-    _filterTableView2.chooseDelegate=nil;
-    _filterTableView3.chooseDelegate=nil;
-    [_filterTableView1 removeFromSuperview];
-    [_filterTableView2 removeFromSuperview];
-    [_filterTableView3 removeFromSuperview];
-    _filterTableView1=nil;
-    _filterTableView2=nil;
-    _filterTableView3=nil;
+}
+
+- (QZFilterTableView *)filterTableView {
+    if (!_filterTableView) {
+        _filterTableView = [[QZFilterTableView alloc] initWithFrame:CGRectZero];
+    }
+    return _filterTableView;
 }
 
 @end

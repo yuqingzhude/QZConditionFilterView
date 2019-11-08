@@ -96,9 +96,7 @@
 }
 
 - (void)dismiss {
-    [UIView animateWithDuration:0.3 animations:^{
-        self.height=0;
-    }];
+    [self removeFromSuperview];
 }
 
 @end
